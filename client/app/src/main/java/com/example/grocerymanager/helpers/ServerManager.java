@@ -10,11 +10,14 @@ import org.json.JSONObject;
 import com.example.grocerymanager.models.ContactForm;
 import com.example.grocerymanager.models.Recipe;
 import com.example.grocerymanager.models.RecipeSet;
+import com.example.grocerymanager.models.ShoppingList;
 import com.example.grocerymanager.models.User;
 import com.google.gson.Gson;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -265,5 +268,54 @@ public class ServerManager {
             RecipeSet.clearInstance();
             return false;
         }
+    }
+
+    public static boolean getShoppingList(User user){
+        // ChatGPT Generated for mocking purposes.
+        String mockedResponse = "[\n" +
+                "  {\n" +
+                "    \"category\": \"Produce\",\n" +
+                "    \"items\": [\"Apples\", \"Bananas\", \"Carrots\"]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"category\": \"Dairy\",\n" +
+                "    \"items\": [\"Milk\", \"Cheese\", \"Yogurt\"]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"category\": \"Meat\",\n" +
+                "    \"items\": [\"Chicken\", \"Beef\", \"Pork\"]\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"category\": \"Bakery\",\n" +
+                "    \"items\": [\"Bread\", \"Bagels\", \"Croissants\"]\n" +
+                "  }\n" +
+                "]";
+
+        // original code
+        try {
+            JSONArray jsonArray = new JSONArray(mockedResponse);
+            ShoppingList shoppingList = ShoppingList.getInstance();
+            shoppingList.clearShoppingList();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String category = jsonObject.getString("category");
+
+                JSONArray itemsJSONArray = jsonObject.getJSONArray("items");
+                List<String> itemsList = new ArrayList<>();
+                for (int j = 0; j < itemsJSONArray.length(); j++) {
+                    itemsList.add(itemsJSONArray.getString(j));
+                    Log.d(TAG, itemsJSONArray.getString(j));
+                }
+                shoppingList.addSection(category, itemsList);
+            }
+
+            return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            RecipeSet.clearInstance();
+            return false;
+        }
+
     }
 }
