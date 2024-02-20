@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">grocerymanager</string>
+    <string name="app_name">Grocery Manager</string>
     <string name="front_banner">Grocery Manager</string>
 
     <string name="menu_bar">---</string>
